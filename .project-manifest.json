@@ -1,0 +1,85 @@
+{
+  "name": "SobreBudget",
+  "description": "Aplicación de presupuesto personal con método de sobres (envelope budgeting)",
+  "version": "1.0.0",
+  "stack": {
+    "frontend": "React 18",
+    "language": "TypeScript",
+    "bundler": "Vite",
+    "styling": "Tailwind CSS",
+    "routing": "React Router v6",
+    "charts": "Recharts",
+    "icons": "Lucide React",
+    "storage": "localStorage"
+  },
+  "features": [
+    "Dashboard con resumen mensual",
+    "CRUD de categorías con presupuestos",
+    "CRUD de transacciones (ingresos/gastos)",
+    "Reportes con gráficas interactivas",
+    "Filtros y búsqueda",
+    "Export/Import JSON",
+    "Reset de datos",
+    "Interfaz responsive",
+    "Semáforo de gastos (verde/amarillo/rojo)"
+  ],
+  "routes": {
+    "/": "Dashboard",
+    "/transacciones": "Gestión de transacciones",
+    "/categorias": "Gestión de categorías",
+    "/reportes": "Reportes y gráficas",
+    "/configuracion": "Configuración (export/import/reset)"
+  },
+  "currency": "COP",
+  "locale": "es-CO",
+  "storage_keys": [
+    "sobrebudget:v1:categories",
+    "sobrebudget:v1:transactions"
+  ],
+  "files": {
+    "core": [
+      "src/App.tsx",
+      "src/main.tsx",
+      "src/index.css",
+      "vercel.json"
+    ],
+    "pages": [
+      "src/pages/Dashboard.tsx",
+      "src/pages/Transactions.tsx",
+      "src/pages/Categories.tsx",
+      "src/pages/Reports.tsx",
+      "src/pages/Settings.tsx"
+    ],
+    "components": [
+      "src/components/Layout.tsx",
+      "src/components/Navbar.tsx",
+      "src/components/Modal.tsx",
+      "src/components/StatCard.tsx",
+      "src/components/ProgressBar.tsx",
+      "src/components/CategoryBadge.tsx"
+    ],
+    "lib": [
+      "src/lib/storage.ts",
+      "src/lib/formatters.ts",
+      "src/lib/helpers.ts"
+    ],
+    "types": [
+      "src/types/index.ts"
+    ],
+    "docs": [
+      "README.md",
+      "QUICKSTART.md",
+      "DELIVERY_CHECKLIST.md"
+    ]
+  },
+  "build": {
+    "command": "npm run build",
+    "output": "dist/",
+    "preview": "npm run preview"
+  },
+  "deploy": {
+    "platform": "Vercel",
+    "config_file": "vercel.json",
+    "rewrite_rule": "/(.*) -> /index.html"
+  }
+}

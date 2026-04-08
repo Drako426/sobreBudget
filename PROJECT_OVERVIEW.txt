@@ -1,0 +1,216 @@
+╔════════════════════════════════════════════════════════════════════════════╗
+║                          SOBREBUDGET v1.0.0                               ║
+║              Aplicación de Presupuesto por Sobres (Envelope)               ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+📋 RESUMEN DEL PROYECTO
+═══════════════════════════════════════════════════════════════════════════════
+
+✅ STACK TÉCNICO
+   ├─ Frontend: React 18 + TypeScript
+   ├─ Bundler: Vite 5
+   ├─ Styling: Tailwind CSS 3
+   ├─ Routing: React Router v6
+   ├─ Charts: Recharts
+   ├─ Icons: Lucide React
+   └─ Storage: localStorage (sin backend)
+
+📱 FUNCIONALIDADES
+═══════════════════════════════════════════════════════════════════════════════
+
+🏠 Dashboard (/)
+   ├─ Selector de mes interactivo
+   ├─ 3 tarjetas: Ingresos | Gastos | Balance
+   └─ Tabla Top Categorías con semáforo y barra de progreso
+
+💳 Transacciones (/transacciones)
+   ├─ CRUD: Crear, Editar, Eliminar movimientos
+   ├─ Filtros: Mes + Categoría + Búsqueda por nota
+   ├─ Validaciones: amount > 0, fecha, categoría, tipo
+   └─ Ordenado por fecha descendente
+
+📂 Categorías (/categorias)
+   ├─ CRUD: Crear, Editar, Eliminar categorías
+   ├─ Color picker (10 colores preseleccionados)
+   ├─ Presupuesto mensual personalizado
+   └─ Protección: No permite eliminar si hay transacciones
+
+📊 Reportes (/reportes)
+   ├─ PieChart: Distribución de gastos por categoría
+   ├─ LineChart: Gastos acumulados por día del mes
+   └─ Estadísticas: # transacciones, promedio diario
+
+⚙️ Configuración (/configuracion)
+   ├─ Exportar JSON (descarga archivo)
+   ├─ Importar JSON (upload o textarea)
+   └─ Resetear datos (limpia localStorage)
+
+📊 SEMÁFORO DE GASTOS
+═══════════════════════════════════════════════════════════════════════════════
+   🟢 Verde:   ≤ 70% del presupuesto gastado
+   🟡 Amarillo: 70% - 100% del presupuesto
+   🔴 Rojo:    > 100% del presupuesto excedido
+
+💾 ALMACENAMIENTO
+═══════════════════════════════════════════════════════════════════════════════
+   localStorage keys:
+   ├─ sobrebudget:v1:categories
+   └─ sobrebudget:v1:transactions
+
+   Format:
+   ├─ Category: { id, name, color, monthlyBudget }
+   └─ Transaction: { id, type, amount, categoryId, date, note? }
+
+💱 CONFIGURACIÓN
+═══════════════════════════════════════════════════════════════════════════════
+   Moneda: COP (Peso Colombiano)
+   Locale: es-CO (Español de Colombia)
+   Formato: $1,234,567
+   Fechas: YYYY-MM-DD (almacenamiento), "15 de enero de 2024" (display)
+
+📁 ESTRUCTURA DE ARCHIVOS
+═══════════════════════════════════════════════════════════════════════════════
+
+src/
+├── App.tsx                          [Componente raíz + Router]
+├── main.tsx                         [Punto de entrada]
+├── index.css                        [Estilos globales + Tailwind]
+├── types/
+│   └── index.ts                     [Tipos: Category, Transaction, etc]
+├── lib/
+│   ├── storage.ts                   [API localStorage]
+│   ├── formatters.ts                [Formato COP, fechas, helpers]
+│   └── helpers.ts                   [Cálculos: stats, summaries, etc]
+├── components/
+│   ├── Layout.tsx                   [Wrapper principal]
+│   ├── Navbar.tsx                   [Navegación sticky]
+│   ├── StatCard.tsx                 [Tarjeta de estadísticas]
+│   ├── ProgressBar.tsx              [Barra de progreso]
+│   ├── CategoryBadge.tsx            [Badge de categoría]
+│   └── Modal.tsx                    [Modal reutilizable]
+└── pages/
+    ├── Dashboard.tsx                [/ - Resumen mensual]
+    ├── Transactions.tsx             [/transacciones - CRUD movimientos]
+    ├── Categories.tsx               [/categorias - CRUD categorías]
+    ├── Reports.tsx                  [/reportes - Gráficas]
+    └── Settings.tsx                 [/configuracion - Export/Import/Reset]
+
+root/
+├── package.json                     [Dependencias]
+├── vite.config.ts                   [Configuración Vite]
+├── tailwind.config.js               [Configuración Tailwind]
+├── tsconfig.json                    [Configuración TypeScript]
+├── vercel.json                      [Configuración Vercel (CRÍTICO)]
+├── README.md                        [Documentación completa]
+├── QUICKSTART.md                    [Guía rápida]
+├── DELIVERY_CHECKLIST.md            [Checklist de funcionalidades]
+└── .project-manifest.json           [Metadatos del proyecto]
+
+🚀 COMANDOS
+═══════════════════════════════════════════════════════════════════════════════
+   npm install                       [Instalar dependencias]
+   npm run dev                        [Ejecutar en desarrollo]
+   npm run build                      [Compilar para producción]
+   npm run preview                    [Previsualizar build]
+   npm run typecheck                  [Validar TypeScript]
+   npm run lint                       [Ejecutar linter]
+
+📦 DEPENDENCIAS PRINCIPALES
+═══════════════════════════════════════════════════════════════════════════════
+   ├─ react@18.3.1
+   ├─ react-dom@18.3.1
+   ├─ react-router-dom@6.x
+   ├─ recharts@2.x (gráficas)
+   ├─ lucide-react@0.344.0 (icons)
+   ├─ tailwindcss@3.4.1 (estilos)
+   └─ typescript@5.5.3
+
+🌐 RUTAS
+═══════════════════════════════════════════════════════════════════════════════
+   /                      → Dashboard
+   /transacciones         → CRUD de transacciones
+   /categorias            → CRUD de categorías
+   /reportes              → Reportes con gráficas
+   /configuracion         → Export/Import/Reset
+   (todas las otras)      → Redirect a /
+
+🔐 DATOS DE EJEMPLO (PRIMER ACCESO)
+═══════════════════════════════════════════════════════════════════════════════
+   6 Categorías:
+   ├─ Alimentación ($800,000/mes)
+   ├─ Transporte ($300,000/mes)
+   ├─ Entretenimiento ($200,000/mes)
+   ├─ Servicios ($400,000/mes)
+   ├─ Salud ($500,000/mes)
+   └─ Otros ($300,000/mes)
+
+   8 Transacciones:
+   ├─ 1 Ingreso: Salario $4,000,000
+   └─ 7 Gastos variados en el mes actual
+
+🎨 DISEÑO
+═══════════════════════════════════════════════════════════════════════════════
+   ├─ Responsive: Móvil, Tablet, Desktop
+   ├─ Navbar sticky con navegación
+   ├─ Modales para crear/editar
+   ├─ Tablas con scroll horizontal en móvil
+   ├─ Grid adaptable (1-2-3 columnas)
+   ├─ Colores: Slate 100-900, Blue, Emerald, Red, Amber
+   └─ Tipografía: Sistema de fuentes de Apple
+
+✨ VALIDACIONES
+═══════════════════════════════════════════════════════════════════════════════
+   Transacciones:
+   ├─ Monto debe ser > 0
+   ├─ Fecha es requerida
+   ├─ Categoría es requerida
+   ├─ Tipo (income/expense) es requerido
+   └─ Nota es opcional
+
+   Categorías:
+   ├─ Nombre es requerido (no vacío)
+   ├─ Color debe estar en la lista
+   ├─ Presupuesto debe ser > 0
+   └─ No puede eliminarse si tiene transacciones
+
+🚢 DEPLOY (VERCEL)
+═══════════════════════════════════════════════════════════════════════════════
+   Build Command: npm run build
+   Output Directory: dist
+   Framework: Vite
+   Node Version: 18+
+   Config: vercel.json (rewrite rule incluido)
+
+   Pasos:
+   1. git init && git add . && git commit -m "SobreBudget"
+   2. git remote add origin [URL GitHub]
+   3. git push -u origin main
+   4. Conectar GitHub en Vercel
+   5. Deploy automático
+
+📝 NOTAS IMPORTANTES
+═══════════════════════════════════════════════════════════════════════════════
+   ✅ Sin variables de entorno (.env)
+   ✅ Sin backend requerido
+   ✅ Datos locales en localStorage
+   ✅ No se sincronizan entre dispositivos
+   ✅ Export/Import permite respaldar datos
+   ✅ TypeScript: 100% tipado
+   ✅ Responsive: Funciona en cualquier dispositivo
+   ✅ Producción: Listo para usar
+   ✅ vercel.json es crítico para rutas en Vercel
+
+🎯 PRÓXIMAS MEJORAS (FUTUROS)
+═══════════════════════════════════════════════════════════════════════════════
+   [ ] Sincronización entre dispositivos (backend + auth)
+   [ ] Presupuesto personalizado por período (mensual/semanal)
+   [ ] Gráficas más avanzadas (comparativas, trends)
+   [ ] Alertas cuando se exceda presupuesto
+   [ ] Historial de cambios
+   [ ] Etiquetas/tags adicionales
+   [ ] Modo oscuro (dark mode)
+   [ ] PWA (Progressive Web App)
+
+═══════════════════════════════════════════════════════════════════════════════
+                           Listo para Producción ✅
+═══════════════════════════════════════════════════════════════════════════════
